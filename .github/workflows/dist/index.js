@@ -45098,7 +45098,7 @@ class git_Git {
         const commits = await this.logCommitHashInWindow(start, stop);
         // console.log(`commits=${commits}`);
         if (commits.length > 0) {
-            const files = await this.git.raw('diff', `--name-only`, `${commits[0]}..${commits[commits.length - 1]}`, `--relative=${this.localDir}`);
+            const files = await this.git.raw('diff', `--name-only`, `${commits[commits.length - 1]}~1..${commits[0]}`, `--relative=${this.localDir}`);
             // console.log(`retval from logChangedFilenamesInTimeWindow:  ${files}`);
             let retval = files.split('\n');
             if (retval[retval.length - 1] === "") {
@@ -45120,8 +45120,8 @@ class git_Git {
         // console.log(`retval from logCommitHashInWindow:  ${JSON.stringify(commits)}`);
         const delta = new Delta();
         if (commits.length > 0) {
-            const data = await this.git.raw('diff', `--raw`, `${commits[commits.length - 1]}..${commits[0]}`, `--relative=${this.localDir}`);
-            // console.log(`retval from diff between commits ${commits[commits.length - 1]}..${commits[0]}:\n  ${data}`);
+            const data = await this.git.raw('diff', `--raw`, `${commits[commits.length - 1]}~1..${commits[0]}`, `--relative=${this.localDir}`);
+            // console.log(`retval from diff between commits ${commits[commits.length - 1]}~1..${commits[0]}:\n  ${data}`);
             const lines = data.split('\n');
             // remove last empty \n
             lines.pop();
